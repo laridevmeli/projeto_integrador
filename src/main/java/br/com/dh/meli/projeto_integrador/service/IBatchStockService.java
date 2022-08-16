@@ -1,6 +1,7 @@
 package br.com.dh.meli.projeto_integrador.service;
 
 import br.com.dh.meli.projeto_integrador.dto.BatchStockDTO;
+import br.com.dh.meli.projeto_integrador.enums.State;
 import br.com.dh.meli.projeto_integrador.model.BatchStock;
 import br.com.dh.meli.projeto_integrador.model.CountStocks;
 import br.com.dh.meli.projeto_integrador.model.InboundOrder;
@@ -21,4 +22,7 @@ public interface IBatchStockService {
     List<BatchStock> findAllBySectionsOrderByDueDate(List<Section> sections);
     List<BatchStock> findAllBySectionsAndByDueDateLessThan(List<Section> sections, LocalDate limitDate);
     List<BatchStockDTO> toDTOs(List<BatchStock> batches);
+    List<BatchStock> updateBatchStocksDueDate();
+    void deleteBatchStocksExpired();
+    List<BatchStock> findAllByState(State state);
 }

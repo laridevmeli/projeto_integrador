@@ -1,5 +1,6 @@
 package br.com.dh.meli.projeto_integrador.repository;
 
+import br.com.dh.meli.projeto_integrador.enums.State;
 import br.com.dh.meli.projeto_integrador.model.CountStocks;
 import br.com.dh.meli.projeto_integrador.model.BatchStock;
 import br.com.dh.meli.projeto_integrador.model.Section;
@@ -26,4 +27,6 @@ public interface IBatchStockRepository extends JpaRepository<BatchStock, Long> {
     List<BatchStock> findBatchStocksByProductIdAndSectionOrderByDueDateAsc(String productId, Section section);
     List<BatchStock> findBatchStocksBySectionOrderByDueDateAsc(Section section);
     List<BatchStock> findBatchStocksBySectionAndDueDateLessThanOrderByDueDateAsc(Section section, LocalDate maxDate);
+    List<BatchStock> findAllByState(State state);
+
 }

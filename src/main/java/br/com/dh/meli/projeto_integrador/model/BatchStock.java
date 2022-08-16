@@ -1,5 +1,6 @@
 package br.com.dh.meli.projeto_integrador.model;
 
+import br.com.dh.meli.projeto_integrador.enums.State;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import javax.persistence.*;
@@ -48,5 +49,7 @@ public class BatchStock {
     @JoinColumn(name = "section_id", nullable = false)
     @JsonIgnoreProperties("batchStocks")
     private Section section;
+
+    private State state;
 
 }

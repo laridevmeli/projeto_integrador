@@ -1,6 +1,7 @@
 package br.com.dh.meli.projeto_integrador.service;
 
 import br.com.dh.meli.projeto_integrador.dto.BatchStockDTO;
+import br.com.dh.meli.projeto_integrador.enums.State;
 import br.com.dh.meli.projeto_integrador.exception.NotFoundException;
 import br.com.dh.meli.projeto_integrador.exception.PreconditionFailedException;
 import br.com.dh.meli.projeto_integrador.mapper.IBatchStockMapper;
@@ -19,6 +20,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 @Service
 public class BatchStockService implements IBatchStockService {
 
@@ -36,8 +39,39 @@ public class BatchStockService implements IBatchStockService {
 
     @Override
     public List<BatchStock> saveAll(List<BatchStock> batches) {
+        batches.forEach( b -> {
+            b.setState(State.setState(b.getDueDate()));
+        });
         return repo.saveAll(batches);
     }
+
+    private void setState(BatchStock batchStock){
+        State.setState(batchStock.getDueDate());
+    }
+    public List<BatchStock> updateBatchStocksDueDate(){
+        List<BatchStock> batches = repo.findAll();
+        if(batches.isEmpty()){
+            throw new NotFoundException("Not found stocks");
+        }
+        return saveAll(batches);
+    }
+
+    @Override
+    public void deleteBatchStocksExpired(){
+        repo.deleteAll(findAllByState(State.VENCIDO));
+    }
+
+
+
+    @Override
+    public List<BatchStock> findAllByState(State state) {
+        List<BatchStock> batches = repo.findAllByState(state);
+        if(batches.isEmpty()){
+            throw new NotFoundException("Not found stocks");
+        }
+        return batches;
+    }
+
 
     @Override
     public BatchStock findByProductId(String productId) {

@@ -2,12 +2,18 @@ package br.com.dh.meli.projeto_integrador.controller;
 
 import br.com.dh.meli.projeto_integrador.dto.BatchStockDTO;
 import br.com.dh.meli.projeto_integrador.dto.SectionDTO;
+import br.com.dh.meli.projeto_integrador.dto.ShoppingCartDTO;
 import br.com.dh.meli.projeto_integrador.enums.Category;
 import br.com.dh.meli.projeto_integrador.enums.ParamOrderBy;
+import br.com.dh.meli.projeto_integrador.enums.State;
+import br.com.dh.meli.projeto_integrador.enums.Status;
+import br.com.dh.meli.projeto_integrador.exception.BadRequestException;
+import br.com.dh.meli.projeto_integrador.model.BatchStock;
 import br.com.dh.meli.projeto_integrador.model.Section;
 import br.com.dh.meli.projeto_integrador.service.IBatchStockService;
 import br.com.dh.meli.projeto_integrador.service.ISectionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -84,4 +90,24 @@ public class BatchStockController {
         LocalDate limitDate = LocalDate.now().plusDays(days);
         return ResponseEntity.ok(service.toDTOs(service.findAllBySectionsAndByDueDateLessThan(sections, limitDate)));
     }
+    @GetMapping("/due-date/state/list")
+    public ResponseEntity<List<BatchStockDTO>> listAllByState(
+            @RequestParam @Valid @NotNull @PositiveOrZero Optional<Integer> state) {
+        State stateOrder = State.valueOf(state.get());
+        List<BatchStock>  batches = service.findAllByState(stateOrder);
+        return ResponseEntity.ok(service.toDTOs(batches));
+
+    }
+
+    @PutMapping("/due-date")
+    public ResponseEntity<List<BatchStockDTO>> updateAllByDueDate(){
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.toDTOs(service.updateBatchStocksDueDate()));
+    }
+
+    @DeleteMapping("/due-date")
+    public ResponseEntity<Void> DeleteAllExpired(){
+        service.deleteBatchStocksExpired();
+        return ResponseEntity.noContent().build();
+    }
+
 }

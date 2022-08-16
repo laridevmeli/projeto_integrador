@@ -1,5 +1,6 @@
 package br.com.dh.meli.projeto_integrador.dto;
 
+import br.com.dh.meli.projeto_integrador.enums.State;
 import br.com.dh.meli.projeto_integrador.model.BatchStock;
 import lombok.*;
 import javax.validation.constraints.*;
@@ -39,4 +40,6 @@ public class BatchStockDTO {
 
     @NotNull
     private LocalDate dueDate;
+    private State state;
+
 }
