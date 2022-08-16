@@ -37,4 +37,4 @@ build/
 ### macOS ###
 .DS_Store
 .pre-commit-config.yaml
-src/main/resources/application-local.properties
+
