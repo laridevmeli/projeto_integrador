@@ -1,4 +1,3 @@
--- inserções baseadas nos endereços:
 insert into country (name, initials, created_at, updated_at) values ("Brazil", "BRA", now(), now());
 insert into country (name, initials, created_at, updated_at) values ("Argentine", "ARG", now(), now());
 

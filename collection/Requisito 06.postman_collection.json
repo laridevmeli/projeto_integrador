@@ -1,0 +1,249 @@
+{
+	"info": {
+		"_postman_id": "dcbf79ff-85d6-4792-b1c4-27fbccc52289",
+		"name": "Requisito 06",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "[200] Get Batchstocks by State",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/fresh-products/batch-stock/due-date/state/list?state=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"batch-stock",
+						"due-date",
+						"state",
+						"list"
+					],
+					"query": [
+						{
+							"key": "state",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[400] Get Batchstocks by State",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/fresh-products/batch-stock/due-date/state/list?state=5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"batch-stock",
+						"due-date",
+						"state",
+						"list"
+					],
+					"query": [
+						{
+							"key": "state",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[404] Get Batchstocks by State",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/fresh-products/batch-stock/due-date/state/list?state=0",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"batch-stock",
+						"due-date",
+						"state",
+						"list"
+					],
+					"query": [
+						{
+							"key": "state",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[200] Create BatchStock by InboundOrder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderNumber\": 10,\n    \"orderDate\": \"2022-08-05\",\n    \"warehouseCode\": \"MLB-SC\",\n    \"sectionCode\": \"RF\",\n    \"representantId\": 1,\n    \"batchStock\": [\n        {\n            \"batchNumber\": 3,\n            \"productId\": \"leite\",\n            \"currentTemperature\": 4,\n            \"minimumTemperature\": 4,\n            \"initialQuantity\": 5,\n            \"currentQuantity\": 5,\n            \"manufacturingDate\": \"2022-08-05T17:46:51.190966\",\n            \"manufacturingTime\": \"2022-08-05T17:46:51.190966\",\n            \"dueDate\": \"2022-08-23T17:46:51.190966\",\n            \"state\":0\n        },\n        {\n            \"batchNumber\": 4,\n            \"productId\": \"leite\",\n            \"currentTemperature\": 4,\n            \"minimumTemperature\": 4,\n            \"initialQuantity\": 10,\n            \"currentQuantity\": 10,\n            \"manufacturingDate\": \"2022-08-05T17:46:51.190966\",\n            \"manufacturingTime\": \"2022-08-05T17:46:51.190966\",\n            \"dueDate\": \"2022-08-23T17:46:51.190966\",\n            \"state\":0\n        },\n         {\n            \"batchNumber\": 5,\n            \"productId\": \"leite\",\n            \"currentTemperature\": 4,\n            \"minimumTemperature\": 4,\n            \"initialQuantity\": 10,\n            \"currentQuantity\": 10,\n            \"manufacturingDate\": \"2022-08-05T17:46:51.190966\",\n            \"manufacturingTime\": \"2022-08-05T17:46:51.190966\",\n            \"dueDate\": \"2022-08-23T17:46:51.190966\",\n            \"state\":0\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/inboundorder",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"inboundorder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[412] Create BatchStock by InboundOrder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderNumber\": 10,\n    \"orderDate\": \"2022-08-05\",\n    \"warehouseCode\": \"MLB-SC\",\n    \"sectionCode\": \"RF\",\n    \"representantId\": 1,\n    \"batchStock\": [\n        {\n            \"batchNumber\": 3,\n            \"productId\": \"leite\",\n            \"currentTemperature\": 4,\n            \"minimumTemperature\": 4,\n            \"initialQuantity\": 5,\n            \"currentQuantity\": 5,\n            \"manufacturingDate\": \"2022-08-05T17:46:51.190966\",\n            \"manufacturingTime\": \"2022-08-05T17:46:51.190966\",\n            \"dueDate\": \"2022-08-23T17:46:51.190966\",\n            \"state\":0\n        },\n        {\n            \"batchNumber\": 4,\n            \"productId\": \"leite\",\n            \"currentTemperature\": 4,\n            \"minimumTemperature\": 4,\n            \"initialQuantity\": 10,\n            \"currentQuantity\": 10,\n            \"manufacturingDate\": \"2022-08-05T17:46:51.190966\",\n            \"manufacturingTime\": \"2022-08-05T17:46:51.190966\",\n            \"dueDate\": \"2022-08-23T17:46:51.190966\",\n            \"state\":0\n        },\n         {\n            \"batchNumber\": 5,\n            \"productId\": \"leite\",\n            \"currentTemperature\": 4,\n            \"minimumTemperature\": 4,\n            \"initialQuantity\": 10,\n            \"currentQuantity\": 10,\n            \"manufacturingDate\": \"2022-08-05T17:46:51.190966\",\n            \"manufacturingTime\": \"2022-08-05T17:46:51.190966\",\n            \"dueDate\": \"2022-08-23T17:46:51.190966\",\n            \"state\":0\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/inboundorder",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"inboundorder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[No Content] Delete all expired batchstock",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/fresh-products/batch-stock/due-date",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"batch-stock",
+						"due-date"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[404] Delete All expired batchstock",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/fresh-products/batch-stock/due-date",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"batch-stock",
+						"due-date"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[201] Update all batchStock",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/fresh-products/batch-stock/due-date",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"batch-stock",
+						"due-date"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[404] Update all batchStock Copy",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/fresh-products/batch-stock/due-date",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"batch-stock",
+						"due-date"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

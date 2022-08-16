@@ -12,6 +12,35 @@
 ## 📝 Proposta
 Criar uma API REST que faz o gerenciamento de estoque e venda de produtos frescos.
 
+## 💣 Requisito 6
+* Gerenciador de vendedores
+* Collection Postman [`collection/Requisito 06.postman_collection.json`]
+* User History [`userHistory/Requisito 6 - BatchStock.pdf`]
+* Teste unitário: [`src/test/java/br/com/dh/meli/projeto_integrador/service/BatchStockServiceTest.java`]
+* Endpoints:
+
+. GET
+```
+/api/v1/fresh-products/batch-stock/due-date/state/list?state={state}
+```
+
+
+. POST
+```
+/api/v1/fresh-products/inboundorder
+```
+
+. PUT
+```
+/api/v1/fresh-products/batch-stock/due-date
+```
+
+. DELETE
+```
+/api/v1/fresh-products/batch-stock/due-date
+```
+
+
 * API DE PRODUTOS FRESCOS
 
 ## 🚀 Como clonar e iniciar a aplicação

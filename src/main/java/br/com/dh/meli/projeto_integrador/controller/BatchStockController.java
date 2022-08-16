@@ -87,6 +87,13 @@ public class BatchStockController {
         LocalDate limitDate = LocalDate.now().plusDays(days);
         return ResponseEntity.ok(service.toDTOs(service.findAllBySectionsAndByDueDateLessThan(sections, limitDate)));
     }
+    /**
+     * List all BatchStock by State
+     *
+     * @param state
+     * @return ResponseEntity<List < BatchStockDTO>>
+     * @author Larissa Navarro
+     */
     @GetMapping("/due-date/state/list")
     public ResponseEntity<List<BatchStockDTO>> listAllByState(
             @RequestParam @Valid @NotNull @PositiveOrZero Optional<Integer> state) {
@@ -95,11 +102,24 @@ public class BatchStockController {
         return ResponseEntity.ok(service.toDTOs(batches));
 
     }
+    /**
+     * Update all BatchStock by due Date
+     *
+     * @return ResponseEntity<List < BatchStockDTO>>
+     * @author Larissa Navarro
+     */
 
     @PutMapping("/due-date")
     public ResponseEntity<List<BatchStockDTO>> updateAllByDueDate(){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.toDTOs(service.updateBatchStocksByDueDate()));
     }
+
+    /**
+     * Delete all BatchStock by state expired
+     *
+     * @return ResponseEntity<List < BatchStockDTO>>
+     * @author Larissa Navarro
+     */
 
     @DeleteMapping("/due-date")
     public ResponseEntity<Void> DeleteAllExpired(){
