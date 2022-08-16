@@ -39,7 +39,7 @@ public class BatchStockService implements IBatchStockService {
 
     /**
      * Save all batchstocks with set state
-     * @param List<Batchstocks> batches
+     * @param  batches
      * @author Larissa Navarro
      */
     @Override
@@ -52,18 +52,14 @@ public class BatchStockService implements IBatchStockService {
 
     /**
      * set state with regras expired batchstocks
-     * @param Batchstocks batchstock
+     * @param batchStock
      * @author Larissa Navarro
      */
     private void setState(BatchStock batchStock){
         State.setState(batchStock.getDueDate());
     }
 
-    /**
-     * set state with regras expired batchstocks
-     * @param List<Batchstocks>
-     * @author Larissa Navarro
-     */
+
     public List<BatchStock> updateBatchStocksByDueDate(){
         List<BatchStock> batches = repo.findAll();
         if(batches.isEmpty()){
@@ -88,7 +84,7 @@ public class BatchStockService implements IBatchStockService {
 
     /**
      * find all batchstocks by State
-     * @param State State
+     * @param  state
      * @author Larissa Navarro
      */
     @Override
@@ -164,7 +160,6 @@ public class BatchStockService implements IBatchStockService {
         }
         return list;
     }
-
     @Override
     public BatchStock decreaseQuantity(BatchStock batchStock, Integer quantity) {
         batchStock.setCurrentQuantity(batchStock.getCurrentQuantity() - quantity);
