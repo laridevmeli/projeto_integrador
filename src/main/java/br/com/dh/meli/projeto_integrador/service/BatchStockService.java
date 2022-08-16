@@ -85,6 +85,7 @@ public class BatchStockService implements IBatchStockService {
         repo.deleteAll(findAllByState(State.VENCIDO));
     }
 
+
     /**
      * find all batchstocks by State
      * @param State State
