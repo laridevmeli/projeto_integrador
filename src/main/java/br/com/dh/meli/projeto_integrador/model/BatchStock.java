@@ -50,6 +50,6 @@ public class BatchStock {
     @JsonIgnoreProperties("batchStocks")
     private Section section;
 
-    private State state;
+
 
 }

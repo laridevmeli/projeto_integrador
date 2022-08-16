@@ -40,6 +40,6 @@ public class BatchStockDTO {
 
     @NotNull
     private LocalDate dueDate;
-    private State state;
+
 
 }
