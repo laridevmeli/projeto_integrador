@@ -19,7 +19,7 @@ target/
 *.iml
 *.ipr
 *.sql
-!data.sql
+
 
 ### NetBeans ###
 /nbproject/private/
