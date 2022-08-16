@@ -22,7 +22,7 @@ public interface IBatchStockService {
     List<BatchStock> findAllBySectionsOrderByDueDate(List<Section> sections);
     List<BatchStock> findAllBySectionsAndByDueDateLessThan(List<Section> sections, LocalDate limitDate);
     List<BatchStockDTO> toDTOs(List<BatchStock> batches);
-    List<BatchStock> updateBatchStocksDueDate();
+    List<BatchStock> updateBatchStocksByDueDate();
     void deleteBatchStocksExpired();
     List<BatchStock> findAllByState(State state);
 }

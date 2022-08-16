@@ -16,10 +16,10 @@ public enum State {
 
     public static State setState(LocalDate date){
         long differenceData = DAYS.between(LocalDate.now(), date);
-        if (differenceData <1) {
+        if (differenceData <0) {
             return State.values()[2];
         }
-        if (differenceData >= 1 && differenceData <= 21){
+        if (differenceData >= 0 && differenceData <= 21){
             return State.values()[1];
         }
         return State.values()[0];

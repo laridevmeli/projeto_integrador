@@ -1,6 +1,8 @@
 package br.com.dh.meli.projeto_integrador.service;
 
 import br.com.dh.meli.projeto_integrador.dto.BatchStockDTO;
+import br.com.dh.meli.projeto_integrador.enums.Category;
+import br.com.dh.meli.projeto_integrador.enums.State;
 import br.com.dh.meli.projeto_integrador.exception.NotFoundException;
 import br.com.dh.meli.projeto_integrador.exception.PreconditionFailedException;
 import br.com.dh.meli.projeto_integrador.model.BatchStock;
@@ -11,20 +13,26 @@ import br.com.dh.meli.projeto_integrador.util.BatchStocksTestUtil;
 import br.com.dh.meli.projeto_integrador.util.InboundOrderTestUtil;
 import br.com.dh.meli.projeto_integrador.util.SectionUtil;
 import br.com.dh.meli.projeto_integrador.util.WarehouseTestUtil;
+import net.bytebuddy.asm.Advice;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import org.springframework.http.HttpStatus;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.*;
 
 /**
@@ -68,6 +76,8 @@ class BatchStockServiceTest {
         List<BatchStock> result = service.saveAll(batches);
         assertFalse(result.isEmpty());
         assertThat(result.size()).isPositive();
+        System.out.println(result.get(0).getState());
+        assertTrue(result.get(0).getState().equals(State.OK));
         verify(repo, atLeastOnce()).saveAll(batches);
     }
 
@@ -279,4 +289,99 @@ class BatchStockServiceTest {
         BatchStock result = service.decreaseQuantity(batchStock, 5);
         assertTrue(result.getCurrentQuantity() < currentQuantity);
     }
+
+    /**
+     * Test update State if due date of list Batchstock is expired or next.
+     * @author Larissa Navarro
+     */
+
+    @Test
+    void updateBatchStocksByDueDate(){
+        List<BatchStock> batches = BatchStocksTestUtil.listOfBatchStock();
+        List<BatchStock> newBatches = BatchStocksTestUtil.listOfBatchStock();
+        newBatches.get(1).setState(State.VENCIDO);
+
+        when(repo.findAll()).thenReturn(batches);
+        when(repo.saveAll(ArgumentMatchers.anyList())).thenReturn(newBatches);
+
+        List<BatchStock> result = service.updateBatchStocksByDueDate();
+        verify(repo, atLeastOnce()).saveAll(batches);
+        System.out.println(newBatches.get(1).getState());
+        assertThat(newBatches.get(1).getState().equals(State.VENCIDO));
+
+    }
+    /**
+     * Test update State if due date  of list Batchstock is expired or next.
+     * @author Larissa Navarro
+     */
+    @Test
+    void updateBatchStocksByDueDateReturnException_WhenIsEmpty(){
+        when(repo.findAll()).thenReturn(new ArrayList<>());
+        NotFoundException exception = Assertions.assertThrows(
+            NotFoundException.class, () -> service.updateBatchStocksByDueDate());
+        assertThat(exception.getStatus()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Test find by state generate jpa query if list is not empty
+     * @author Larissa Navarro
+     */
+    @Test
+    void findAllByState_ReturnList_WhenListIsNotEmpty(){
+        List<BatchStock> batchStockList =BatchStocksTestUtil.listOfBatchStock();
+        batchStockList.forEach(s -> s.setState(State.VENCIDO));
+
+        when(repo.findAllByState(ArgumentMatchers.any(State.class))).thenReturn(batchStockList);
+        List<BatchStock> returnBatch = service.findAllByState(State.VENCIDO);
+
+        assertThat(returnBatch.size()).isPositive();
+        verify(repo, atLeast(1)).findAllByState(State.VENCIDO);
+    }
+    /**
+     * Test find by state generate jpa query if list is empty
+     * @author Larissa Navarro
+     */
+    @Test
+    void findAllByState_ReturnList_WhenListIsEmpty(){
+        when(repo.findAllByState(ArgumentMatchers.any(State.class))).thenReturn(new ArrayList<>());
+        NotFoundException exception = Assertions.assertThrows(
+                NotFoundException.class, () -> service.findAllByState(State.VENCIDO));
+        assertThat(exception.getStatus()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+    /**
+     * Test delete all state expired when list is not empty
+     * @author Larissa Navarro
+     */
+    @Test
+    void deleteBatchStocksExpired_WhenListIsNotEmpty(){
+        List<BatchStock> batchStockList =BatchStocksTestUtil.listOfBatchStock();
+        willDoNothing().given(repo).deleteAll(ArgumentMatchers.anyList());
+        when(repo.findAll()).thenReturn(batchStockList);
+        when(repo.findAllByState(ArgumentMatchers.any(State.class))).thenReturn(batchStockList);
+
+        service.deleteBatchStocksExpired();
+
+        verify(repo, atLeast(1)).deleteAll(batchStockList);
+    }
+    /**
+     * Test delete all state expired when list is empty
+     * @author Larissa Navarro
+     */
+    @Test
+    void deleteBatchStocksExpired_WhenListIsEmpty(){
+        willDoNothing().given(repo).deleteAll(ArgumentMatchers.anyList());
+        when(repo.findAll()).thenReturn(new ArrayList<>());
+        when(repo.findAllByState(ArgumentMatchers.any(State.class))).thenReturn(new ArrayList<>());
+        NotFoundException exception = Assertions.assertThrows(
+                NotFoundException.class, () ->service.deleteBatchStocksExpired());
+        assertThat(exception.getStatus()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+
+
+
+
+
+
+
 }

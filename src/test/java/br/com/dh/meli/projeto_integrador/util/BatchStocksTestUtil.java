@@ -1,6 +1,7 @@
 package br.com.dh.meli.projeto_integrador.util;
 
 import br.com.dh.meli.projeto_integrador.dto.BatchStockDTO;
+import br.com.dh.meli.projeto_integrador.enums.State;
 import br.com.dh.meli.projeto_integrador.mapper.IBatchStockMapper;
 import br.com.dh.meli.projeto_integrador.model.BatchStock;
 import br.com.dh.meli.projeto_integrador.model.Warehouse;
@@ -75,8 +76,11 @@ public class BatchStocksTestUtil {
     public static List<BatchStockDTO> payloadForInboundOrderPayload() {
         List<BatchStockDTO> list = new ArrayList<>();
         list.add(batchStockDTOSampleOne());
+        list.add(batchStockDTOSampleTwo());
         return list;
     }
+
+
 
     /**
      * Generate list of BatchStockDTO
@@ -94,4 +98,22 @@ public class BatchStocksTestUtil {
         });
         return mapped;
     }
+
+    public static BatchStockDTO batchStockDTOSampleTwo () {
+        LocalDate now = LocalDate.of(2022, 05, 1);
+        LocalDate dueDate = LocalDate.of(2021, 12, 1);
+        BatchStockDTO dto = generatorDTO();
+        dto.setBatchNumber(10);
+        dto.setProductId("Teste 2");
+        dto.setInitialQuantity(7);
+        dto.setCurrentQuantity(7);
+        dto.setMinimumTemperature(0F);
+        dto.setCurrentTemperature(30F);
+        dto.setManufacturingDate(now);
+        dto.getManufacturingTime();
+        dto.setDueDate(dueDate);
+        return dto;
+    }
+
+
 }

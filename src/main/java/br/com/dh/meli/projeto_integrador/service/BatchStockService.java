@@ -37,6 +37,11 @@ public class BatchStockService implements IBatchStockService {
         }).collect(Collectors.toList());
     }
 
+    /**
+     * Save all batchstocks with set state
+     * @param List<Batchstocks> batches
+     * @author Larissa Navarro
+     */
     @Override
     public List<BatchStock> saveAll(List<BatchStock> batches) {
         batches.forEach( b -> {
@@ -45,10 +50,21 @@ public class BatchStockService implements IBatchStockService {
         return repo.saveAll(batches);
     }
 
+    /**
+     * set state with regras expired batchstocks
+     * @param Batchstocks batchstock
+     * @author Larissa Navarro
+     */
     private void setState(BatchStock batchStock){
         State.setState(batchStock.getDueDate());
     }
-    public List<BatchStock> updateBatchStocksDueDate(){
+
+    /**
+     * set state with regras expired batchstocks
+     * @param List<Batchstocks>
+     * @author Larissa Navarro
+     */
+    public List<BatchStock> updateBatchStocksByDueDate(){
         List<BatchStock> batches = repo.findAll();
         if(batches.isEmpty()){
             throw new NotFoundException("Not found stocks");
@@ -56,13 +72,24 @@ public class BatchStockService implements IBatchStockService {
         return saveAll(batches);
     }
 
+    /**
+     * delete all batchstocks expired
+     * @author Larissa Navarro
+     */
     @Override
     public void deleteBatchStocksExpired(){
+        List<BatchStock> batchStockList = repo.findAll();
+        if(batchStockList.isEmpty()){
+            throw new NotFoundException("Not found stocks");
+        }
         repo.deleteAll(findAllByState(State.VENCIDO));
     }
 
-
-
+    /**
+     * find all batchstocks by State
+     * @param State State
+     * @author Larissa Navarro
+     */
     @Override
     public List<BatchStock> findAllByState(State state) {
         List<BatchStock> batches = repo.findAllByState(state);
@@ -71,7 +98,6 @@ public class BatchStockService implements IBatchStockService {
         }
         return batches;
     }
-
 
     @Override
     public BatchStock findByProductId(String productId) {

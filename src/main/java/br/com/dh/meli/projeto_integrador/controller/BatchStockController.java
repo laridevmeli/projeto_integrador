@@ -2,12 +2,9 @@ package br.com.dh.meli.projeto_integrador.controller;
 
 import br.com.dh.meli.projeto_integrador.dto.BatchStockDTO;
 import br.com.dh.meli.projeto_integrador.dto.SectionDTO;
-import br.com.dh.meli.projeto_integrador.dto.ShoppingCartDTO;
 import br.com.dh.meli.projeto_integrador.enums.Category;
 import br.com.dh.meli.projeto_integrador.enums.ParamOrderBy;
 import br.com.dh.meli.projeto_integrador.enums.State;
-import br.com.dh.meli.projeto_integrador.enums.Status;
-import br.com.dh.meli.projeto_integrador.exception.BadRequestException;
 import br.com.dh.meli.projeto_integrador.model.BatchStock;
 import br.com.dh.meli.projeto_integrador.model.Section;
 import br.com.dh.meli.projeto_integrador.service.IBatchStockService;
@@ -101,7 +98,7 @@ public class BatchStockController {
 
     @PutMapping("/due-date")
     public ResponseEntity<List<BatchStockDTO>> updateAllByDueDate(){
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.toDTOs(service.updateBatchStocksDueDate()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.toDTOs(service.updateBatchStocksByDueDate()));
     }
 
     @DeleteMapping("/due-date")
