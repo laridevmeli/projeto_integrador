@@ -14,7 +14,7 @@ Criar uma API REST que faz o gerenciamento de estoque e venda de produtos fresco
 
 ## 💣 Requisito 6
 * Gestão de qualidade - batchstocks
-* Collection Postman [`collection/Requisito 06.postman_collection.json`](collection/Requisito 06.postman_collection.json)
+* Collection Postman [`collection/Requisito06.postman_collection.json`](collection/Requisito06.postman_collection.json)
 * User History [`userHistory/Requisito6-BatchStock.pdf`](userHistory/Requisito6-BatchStock.pdf)
 * Teste unitário: [`src/test/java/br/com/dh/meli/projeto_integrador/service/BatchStockServiceTest.java`](src/test/java/br/com/dh/meli/projeto_integrador/service/BatchStockServiceTest.java)
 * Endpoints:
