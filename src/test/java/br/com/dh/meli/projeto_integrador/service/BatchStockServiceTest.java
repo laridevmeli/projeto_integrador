@@ -377,11 +377,4 @@ class BatchStockServiceTest {
         assertThat(exception.getStatus()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
-
-
-
-
-
-
-
 }
